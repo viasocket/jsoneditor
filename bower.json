@@ -10,13 +10,13 @@
   "homepage": "http://jsoneditoronline.org/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/josdejong/jsoneditor.git"
+    "url": "https://github.com/viasocket/jsoneditor.git"
   },
   "main": [
     "./dist/jsoneditor.min.js",
     "./dist/jsoneditor.min.css"
   ],
-  "bugs": "https://github.com/josdejong/jsoneditor/issues",
+  "bugs": "https://github.com/viasocket/jsoneditor/issues",
   "ignore": [
     "misc",
     "node_modules",
