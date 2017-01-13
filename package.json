@@ -9,14 +9,14 @@
     "viewer",
     "formatter"
   ],
-  "author": "Jos de Jong <wjosdejong@gmail.com>",
+  "author": "Sameer Rathod - Originally(Jos de Jong <wjosdejong@gmail.com>)"
   "license": "Apache-2.0",
-  "homepage": "https://github.com/josdejong/jsoneditor",
+  "homepage": "https://github.com/viasocket/jsoneditor",
   "repository": {
     "type": "git",
-    "url": "https://github.com/josdejong/jsoneditor.git"
+    "url": "https://github.com/viasocket/jsoneditor.git"
   },
-  "bugs": "https://github.com/josdejong/jsoneditor/issues",
+  "bugs": "https://github.com/viasocket/jsoneditor/issues",
   "scripts": {
     "build": "gulp",
     "watch": "gulp watch",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "ajv": "3.8.8",
-    "brace": "0.8.0",
+    "brace": "https://github.com/viasocket/brace.git",
     "javascript-natural-sort": "0.7.1"
   },
   "devDependencies": {
