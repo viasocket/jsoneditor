@@ -6,6 +6,7 @@ try {
 }
 catch (err) {
   // failed to load ace, no problem, we will fall back to plain text
+  console.log("errror on loading ace");
 }
 
 var ModeSwitcher = require('./ModeSwitcher');
@@ -17,6 +18,10 @@ var textmode = {};
 var MAX_ERRORS = 3; // maximum number of displayed errors at the bottom
 
 var DEFAULT_THEME = 'ace/theme/jsoneditor';
+
+// JSON.parse = function(str) {
+//     return str;
+// };
 
 /**
  * Create a text editor
@@ -150,7 +155,7 @@ textmode.create = function (container, options) {
     this.editorDom.style.height = '100%'; // TODO: move to css
     this.editorDom.style.width = '100%'; // TODO: move to css
     this.content.appendChild(this.editorDom);
-
+    var languagetools = _ace.acequire("ace/ext/language_tools");
     var aceEditor = _ace.edit(this.editorDom);
     aceEditor.$blockScrolling = Infinity;
     aceEditor.setTheme(this.theme);
@@ -160,8 +165,30 @@ textmode.create = function (container, options) {
     aceEditor.getSession().setTabSize(this.indentation);
     aceEditor.getSession().setUseSoftTabs(true);
     aceEditor.getSession().setUseWrapMode(true);
+    aceEditor.setOptions({
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+    });
     aceEditor.commands.bindKey('Ctrl-L', null);    // disable Ctrl+L (is used by the browser to select the address bar)
     aceEditor.commands.bindKey('Command-L', null); // disable Ctrl+L (is used by the browser to select the address bar)
+
+
+  var customCompleter = {
+      getCompletions: function(editor, session, pos, prefix, callback) {
+           // your code
+           /* for example
+            * let TODO = ...;
+            * callback(null, [{name: TODO, value: TODO, score: 1, meta: TODO}]);
+            */
+             callback(null, [
+              {value: "$sameer", score: 1000, meta: "custom"},
+              {value: "$rathore", score: 1000, meta: "custom"}
+            ]);
+      }
+ }
+
+
+    languagetools.setCompleters([customCompleter]);
     this.aceEditor = aceEditor;
 
     // TODO: deprecated since v5.0.0. Cleanup backward compatibility some day
@@ -222,7 +249,9 @@ textmode.create = function (container, options) {
  * @private
  */
 textmode._onChange = function () {
+  
   // validate JSON schema (if configured)
+  console.log(this.aceEditor.getSession().getAnnotations());
   this._debouncedValidate();
 
   // trigger the onChange callback
@@ -244,6 +273,13 @@ textmode._onChange = function () {
 textmode._onKeyDown = function (event) {
   var keynum = event.which || event.keyCode;
   var handled = false;
+  
+  if(keynum == 52 && event.shiftKey){
+    console.log(this.aceEditor.commands.byName.startAutocomplete);
+    console.log(this);
+    this.aceEditor.commands.byName.startAutocomplete.exec(this.aceEditor);
+  }
+  
 
   if (keynum == 220 && event.ctrlKey) {
     if (event.shiftKey) { // Ctrl+Shift+\
@@ -286,6 +322,10 @@ textmode.destroy = function () {
   
   this._debouncedValidate = null;
 };
+
+textmode.sanitizeJSON = function(unsanitized){ 
+    return unsanitized.replace(/\\/g, "").replace(/\n/g, "").replace(/\r/g, "").replace(/\t/g, "").replace(/\f/g, "").replace('\\"',''); //.replace(/'/g,"\\\'").replace(/\&/g, "\\&"); 
+}
 
 /**
  * Compact the code in the formatter
@@ -332,6 +372,7 @@ textmode.resize = function () {
  * @param {Object} json
  */
 textmode.set = function(json) {
+  console.log("setter",json);
   this.setText(JSON.stringify(json, null, this.indentation));
 };
 
@@ -342,19 +383,20 @@ textmode.set = function(json) {
 textmode.get = function() {
   var text = this.getText();
   var json;
+  return this.sanitizeJSON(text);
+  // try {
+  //   console.log(text);
+  //   json = util.sanitize(text); // this can throw an error
+  // }
+  // catch (err) {
+  //   // try to sanitize json, replace JavaScript notation with JSON notation
+  //   text = util.sanitize(text);
 
-  try {
-    json = util.parse(text); // this can throw an error
-  }
-  catch (err) {
-    // try to sanitize json, replace JavaScript notation with JSON notation
-    text = util.sanitize(text);
+  //   // try to parse again
+  //   json = util.parse(text); // this can throw an error
+  // }
 
-    // try to parse again
-    json = util.parse(text); // this can throw an error
-  }
-
-  return json;
+  // return json;
 };
 
 /**
@@ -399,7 +441,7 @@ textmode.setText = function(jsonText) {
   }
 
   // validate JSON schema
-  this.validate();
+  // this.validate();
 };
 
 /**
@@ -407,6 +449,7 @@ textmode.setText = function(jsonText) {
  * Throws an exception when no JSON schema is configured
  */
 textmode.validate = function () {
+
   // clear all current errors
   if (this.dom.validationErrors) {
     this.dom.validationErrors.parentNode.removeChild(this.dom.validationErrors);
@@ -421,10 +464,12 @@ textmode.validate = function () {
   var json;
   try {
     json = this.get(); // this can fail when there is no valid json
+
     doValidate = true;
   }
   catch (err) {
     // no valid JSON, don't validate
+    // console.log(err);
   }
 
   // only validate the JSON when parsing the JSON succeeded
