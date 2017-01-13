@@ -75,6 +75,14 @@ textmode.create = function (container, options) {
     require('./ace/theme-jsoneditor');
   }
 
+  /*initialize completer here */
+  if(typeof this.options.completer != 'object'){
+    this.options.completer = [
+              {value: "$sameer", score: 1000, meta: "custom"},
+              {value: "$rathore", score: 1000, meta: "custom"}
+            ];
+  }
+
   var me = this;
   this.container = container;
   this.dom = {};
@@ -180,10 +188,7 @@ textmode.create = function (container, options) {
             * let TODO = ...;
             * callback(null, [{name: TODO, value: TODO, score: 1, meta: TODO}]);
             */
-             callback(null, [
-              {value: "$sameer", score: 1000, meta: "custom"},
-              {value: "$rathore", score: 1000, meta: "custom"}
-            ]);
+             callback(null, this.options.completer);
       }
  }
 
