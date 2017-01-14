@@ -257,7 +257,7 @@ var _completer = this.options.completer;
 textmode._onChange = function () {
   
   // validate JSON schema (if configured)
-  console.log(this.aceEditor.getSession().getAnnotations());
+  
   this._debouncedValidate();
 
   // trigger the onChange callback
@@ -281,8 +281,6 @@ textmode._onKeyDown = function (event) {
   var handled = false;
   
   if(keynum == 52 && event.shiftKey){
-    console.log(this.aceEditor.commands.byName.startAutocomplete);
-    console.log(this);
     this.aceEditor.commands.byName.startAutocomplete.exec(this.aceEditor);
   }
   
@@ -378,7 +376,7 @@ textmode.resize = function () {
  * @param {Object} json
  */
 textmode.set = function(json) {
-  console.log("setter",json);
+  
   this.setText(JSON.stringify(json, null, this.indentation));
 };
 
