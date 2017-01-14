@@ -16063,6 +16063,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    aceEditor.commands.bindKey('Command-L', null); // disable Ctrl+L (is used by the browser to select the address bar)
 
 
+	var _completer = this.options.completer;
 	  var customCompleter = {
 	      getCompletions: function(editor, session, pos, prefix, callback) {
 	           // your code
@@ -16070,7 +16071,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            * let TODO = ...;
 	            * callback(null, [{name: TODO, value: TODO, score: 1, meta: TODO}]);
 	            */
-	             callback(null, this.options.completer);
+	             callback(null, _completer);
 	      }
 	 }
 
