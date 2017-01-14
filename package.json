@@ -14,7 +14,7 @@
   "homepage": "https://github.com/viasocket/jsoneditor",
   "repository": {
     "type": "git",
-    "url": "https://github.com/viasocket/jsoneditor.git"
+    "url": "https://github.com/viasocket/jsoneditor.git#3bed1515e151ff8f453d5dfe090d1bd46242d507"
   },
   "bugs": "https://github.com/viasocket/jsoneditor/issues",
   "scripts": {
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "ajv": "3.8.8",
-    "brace": "https://github.com/viasocket/brace.git",
+    "brace": "https://github.com/viasocket/brace.git#3bed1515e151ff8f453d5dfe090d1bd46242d507",
     "javascript-natural-sort": "0.7.1"
   },
   "devDependencies": {
