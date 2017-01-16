@@ -15928,7 +15928,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  // read options
 	  options = options || {};
 	  this.options = options;
-	  console.log("options ", this.options);
 	  // indentation
 	  if (options.indentation) {
 	    this.indentation = Number(options.indentation);
@@ -16137,7 +16136,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	textmode._onChange = function() {
 
 	  // validate JSON schema (if configured)
-	  console.log(this.aceEditor.getSession().getAnnotations());
+	  
 	  this._debouncedValidate();
 
 	  // trigger the onChange callback
@@ -16160,8 +16159,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var handled = false;
 
 	  if (keynum == 52 && event.shiftKey) {
-	    console.log(this.aceEditor.commands.byName.startAutocomplete);
-	    console.log(this);
 	    this.aceEditor.commands.byName.startAutocomplete.exec(this.aceEditor);
 	  }
 
@@ -16226,8 +16223,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	textmode.format = function() {
 	  var json = this.get();
-	  var text = JSON.stringify(json, null, this.indentation);
-	  // var text = json;
+	  // var text = JSON.stringify(json, null, this.indentation);
+	  var text = json;
 	  this.setText(text);
 	};
 
@@ -16258,7 +16255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Object} json
 	 */
 	textmode.set = function(json) {
-	  console.log("setter", json);
+	  
 	  // this.setText(JSON.stringify(json, null, this.indentation));
 	  this.setText(this.sanitizeJSON(json));
 	};
@@ -16307,7 +16304,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	textmode.setText = function(jsonText) {
 	  var text;
 	  // jsonText = JSON.parse(jsonText, null, this.indentation)
-	  console.log("thosos s", jsonText);
 	  if (this.options.escapeUnicode === true) {
 	    text = util.escapeUnicodeChars(jsonText);
 	  } else {
