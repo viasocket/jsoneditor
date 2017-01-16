@@ -8358,7 +8358,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	textmode.set = function(json) {
 	  
 	  // this.setText(JSON.stringify(json, null, this.indentation));
-	  this.setText(this.sanitizeJSON(json));
+	  this.setText(json);
 	};
 
 	/**

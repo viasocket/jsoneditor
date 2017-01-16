@@ -375,7 +375,7 @@ textmode.resize = function() {
 textmode.set = function(json) {
   
   // this.setText(JSON.stringify(json, null, this.indentation));
-  this.setText(this.sanitizeJSON(json));
+  this.setText(json);
 };
 
 /**
