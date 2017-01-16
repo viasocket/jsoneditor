@@ -25,7 +25,7 @@
  *
  * @author  Jos de Jong, <wjosdejong@gmail.com>
  * @version 5.5.11
- * @date    2017-01-14
+ * @date    2017-01-16
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -15885,8 +15885,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	var ace;
 	try {
 	  ace = __webpack_require__(63);
-	}
-	catch (err) {
+	} catch (err) {
 	  // failed to load ace, no problem, we will fall back to plain text
 	  console.log("errror on loading ace");
 	}
@@ -15925,16 +15924,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	 *                                                       false by default.
 	 * @private
 	 */
-	textmode.create = function (container, options) {
+	textmode.create = function(container, options) {
 	  // read options
 	  options = options || {};
 	  this.options = options;
-
+	  console.log("options ", this.options);
 	  // indentation
 	  if (options.indentation) {
 	    this.indentation = Number(options.indentation);
-	  }
-	  else {
+	  } else {
 	    this.indentation = 2; // number of spaces
 	  }
 
@@ -15958,18 +15956,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  /*initialize completer here */
-	  if(typeof this.options.completer != 'object'){
-	    this.options.completer = [
-	              {value: "$sameer", score: 1000, meta: "custom"},
-	              {value: "$rathore", score: 1000, meta: "custom"}
-	            ];
+	  if (typeof this.options.completer != 'object') {
+	    this.options.completer = [{
+	      value: "$sameer",
+	      score: 1000,
+	      meta: "custom"
+	    }, {
+	      value: "$rathore",
+	      score: 1000,
+	      meta: "custom"
+	    }];
 	  }
 
 	  var me = this;
 	  this.container = container;
 	  this.dom = {};
-	  this.aceEditor = undefined;  // ace code editor
-	  this.textarea = undefined;  // plain text editor (fallback when Ace is not available)
+	  this.aceEditor = undefined; // ace code editor
+	  this.textarea = undefined; // plain text editor (fallback when Ace is not available)
 	  this.validateSchema = null;
 
 	  // create a debounced validate function
@@ -15980,11 +15983,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  this.frame = document.createElement('div');
 	  this.frame.className = 'jsoneditor jsoneditor-mode-' + this.options.mode;
-	  this.frame.onclick = function (event) {
+	  this.frame.onclick = function(event) {
 	    // prevent default submit action when the editor is located inside a form
 	    event.preventDefault();
 	  };
-	  this.frame.onkeydown = function (event) {
+	  this.frame.onkeydown = function(event) {
 	    me._onKeyDown(event);
 	  };
 
@@ -15999,12 +16002,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  buttonFormat.className = 'jsoneditor-format';
 	  buttonFormat.title = 'Format JSON data, with proper indentation and line feeds (Ctrl+\\)';
 	  this.menu.appendChild(buttonFormat);
-	  buttonFormat.onclick = function () {
+	  buttonFormat.onclick = function() {
 	    try {
 	      me.format();
 	      me._onChange();
-	    }
-	    catch (err) {
+	    } catch (err) {
 	      me._onError(err);
 	    }
 	  };
@@ -16015,12 +16017,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	  buttonCompact.className = 'jsoneditor-compact';
 	  buttonCompact.title = 'Compact JSON data, remove all whitespaces (Ctrl+Shift+\\)';
 	  this.menu.appendChild(buttonCompact);
-	  buttonCompact.onclick = function () {
+	  buttonCompact.onclick = function() {
 	    try {
 	      me.compact();
 	      me._onChange();
-	    }
-	    catch (err) {
+	    } catch (err) {
 	      me._onError(err);
 	    }
 	  };
@@ -16059,21 +16060,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	      enableBasicAutocompletion: true,
 	      enableLiveAutocompletion: true
 	    });
-	    aceEditor.commands.bindKey('Ctrl-L', null);    // disable Ctrl+L (is used by the browser to select the address bar)
+	    aceEditor.commands.bindKey('Ctrl-L', null); // disable Ctrl+L (is used by the browser to select the address bar)
 	    aceEditor.commands.bindKey('Command-L', null); // disable Ctrl+L (is used by the browser to select the address bar)
 
-
-	var _completer = this.options.completer;
-	  var customCompleter = {
+	    var _completer = this.options.completer;
+	    var customCompleter = {
 	      getCompletions: function(editor, session, pos, prefix, callback) {
-	           // your code
-	           /* for example
-	            * let TODO = ...;
-	            * callback(null, [{name: TODO, value: TODO, score: 1, meta: TODO}]);
-	            */
-	             callback(null, _completer);
+	        // your code
+	        /* for example
+	         * let TODO = ...;
+	         * callback(null, [{name: TODO, value: TODO, score: 1, meta: TODO}]);
+	         */
+	        callback(null, _completer);
 	      }
-	 }
+	    }
 
 
 	    languagetools.setCompleters([customCompleter]);
@@ -16082,11 +16082,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // TODO: deprecated since v5.0.0. Cleanup backward compatibility some day
 	    if (!this.hasOwnProperty('editor')) {
 	      Object.defineProperty(this, 'editor', {
-	        get: function () {
+	        get: function() {
 	          console.warn('Property "editor" has been renamed to "aceEditor".');
 	          return me.aceEditor;
 	        },
-	        set: function (aceEditor) {
+	        set: function(aceEditor) {
 	          console.warn('Property "editor" has been renamed to "aceEditor".');
 	          me.aceEditor = aceEditor;
 	        }
@@ -16098,7 +16098,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    poweredBy.href = 'http://ace.ajax.org';
 	    poweredBy.target = '_blank';
 	    poweredBy.className = 'jsoneditor-poweredBy';
-	    poweredBy.onclick = function () {
+	    poweredBy.onclick = function() {
 	      // TODO: this anchor falls below the margin of the content,
 	      // therefore the normal a.href does not work. We use a click event
 	      // for now, but this should be fixed.
@@ -16108,8 +16108,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    // register onchange event
 	    aceEditor.on('change', this._onChange.bind(this));
-	  }
-	  else {
+	  } else {
 	    // load a plain text textarea
 	    var textarea = document.createElement('textarea');
 	    textarea.className = 'jsoneditor-text';
@@ -16120,8 +16119,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    // register onchange event
 	    if (this.textarea.oninput === null) {
 	      this.textarea.oninput = this._onChange.bind(this);
-	    }
-	    else {
+	    } else {
 	      // oninput is undefined. For IE8-
 	      this.textarea.onchange = this._onChange.bind(this);
 	    }
@@ -16136,18 +16134,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * - Send a callback to the onChange listener if provided
 	 * @private
 	 */
-	textmode._onChange = function () {
-	  
+	textmode._onChange = function() {
+
 	  // validate JSON schema (if configured)
-	  
+	  console.log(this.aceEditor.getSession().getAnnotations());
 	  this._debouncedValidate();
 
 	  // trigger the onChange callback
 	  if (this.options.onChange) {
 	    try {
 	      this.options.onChange();
-	    }
-	    catch (err) {
+	    } catch (err) {
 	      console.error('Error in onChange callback: ', err);
 	    }
 	  }
@@ -16158,21 +16155,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Event} event
 	 * @private
 	 */
-	textmode._onKeyDown = function (event) {
+	textmode._onKeyDown = function(event) {
 	  var keynum = event.which || event.keyCode;
 	  var handled = false;
-	  
-	  if(keynum == 52 && event.shiftKey){
+
+	  if (keynum == 52 && event.shiftKey) {
+	    console.log(this.aceEditor.commands.byName.startAutocomplete);
+	    console.log(this);
 	    this.aceEditor.commands.byName.startAutocomplete.exec(this.aceEditor);
 	  }
-	  
+
 
 	  if (keynum == 220 && event.ctrlKey) {
 	    if (event.shiftKey) { // Ctrl+Shift+\
 	      this.compact();
 	      this._onChange();
-	    }
-	    else { // Ctrl+\
+	    } else { // Ctrl+\
 	      this.format();
 	      this._onChange();
 	    }
@@ -16188,7 +16186,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Destroy the editor. Clean up DOM, event listeners, and web workers.
 	 */
-	textmode.destroy = function () {
+	textmode.destroy = function() {
 	  // remove old ace editor
 	  if (this.aceEditor) {
 	    this.aceEditor.destroy();
@@ -16205,36 +16203,38 @@ return /******/ (function(modules) { // webpackBootstrap
 	  }
 
 	  this.textarea = null;
-	  
+
 	  this._debouncedValidate = null;
 	};
 
-	textmode.sanitizeJSON = function(unsanitized){ 
-	    return unsanitized.replace(/\\/g, "").replace(/\n/g, "").replace(/\r/g, "").replace(/\t/g, "").replace(/\f/g, "").replace('\\"',''); //.replace(/'/g,"\\\'").replace(/\&/g, "\\&"); 
+	textmode.sanitizeJSON = function(unsanitized) {
+	  return unsanitized.replace(/\\/g, "").replace('\\"', ''); //.replace(/'/g,"\\\'").replace(/\&/g, "\\&"); 
 	}
 
 	/**
 	 * Compact the code in the formatter
 	 */
-	textmode.compact = function () {
+	textmode.compact = function() {
 	  var json = this.get();
-	  var text = JSON.stringify(json);
+	  // var text = JSON.stringify(json);
+	  var text = json;
 	  this.setText(text);
 	};
 
 	/**
 	 * Format the code in the formatter
 	 */
-	textmode.format = function () {
+	textmode.format = function() {
 	  var json = this.get();
 	  var text = JSON.stringify(json, null, this.indentation);
+	  // var text = json;
 	  this.setText(text);
 	};
 
 	/**
 	 * Set focus to the formatter
 	 */
-	textmode.focus = function () {
+	textmode.focus = function() {
 	  if (this.textarea) {
 	    this.textarea.focus();
 	  }
@@ -16246,7 +16246,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	/**
 	 * Resize the formatter
 	 */
-	textmode.resize = function () {
+	textmode.resize = function() {
 	  if (this.aceEditor) {
 	    var force = false;
 	    this.aceEditor.resize(force);
@@ -16258,8 +16258,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * @param {Object} json
 	 */
 	textmode.set = function(json) {
-	  
-	  this.setText(JSON.stringify(json, null, this.indentation));
+	  console.log("setter", json);
+	  // this.setText(JSON.stringify(json, null, this.indentation));
+	  this.setText(this.sanitizeJSON(json));
 	};
 
 	/**
@@ -16305,11 +16306,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	 */
 	textmode.setText = function(jsonText) {
 	  var text;
-
+	  // jsonText = JSON.parse(jsonText, null, this.indentation)
+	  console.log("thosos s", jsonText);
 	  if (this.options.escapeUnicode === true) {
 	    text = util.escapeUnicodeChars(jsonText);
-	  }
-	  else {
+	  } else {
 	    text = jsonText;
 	  }
 
@@ -16334,7 +16335,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	 * Validate current JSON object against the configured JSON schema
 	 * Throws an exception when no JSON schema is configured
 	 */
-	textmode.validate = function () {
+	textmode.validate = function() {
 
 	  // clear all current errors
 	  if (this.dom.validationErrors) {
@@ -16352,8 +16353,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    json = this.get(); // this can fail when there is no valid json
 
 	    doValidate = true;
-	  }
-	  catch (err) {
+	  } catch (err) {
 	    // no valid JSON, don't validate
 	    // console.log(err);
 	  }
@@ -16362,7 +16362,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (doValidate && this.validateSchema) {
 	    var valid = this.validateSchema(json);
 	    if (!valid) {
-	      errors = this.validateSchema.errors.map(function (error) {
+	      errors = this.validateSchema.errors.map(function(error) {
 	        return util.improveSchemaError(error);
 	      });
 	    }
@@ -16379,21 +16379,20 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var validationErrors = document.createElement('div');
 	    validationErrors.innerHTML = '<table class="jsoneditor-text-errors">' +
-	        '<tbody>' +
-	        errors.map(function (error) {
-	          var message;
-	          if (typeof error === 'string') {
-	            message = '<td colspan="2"><pre>' + error + '</pre></td>';
-	          }
-	          else {
-	            message = '<td>' + error.dataPath + '</td>' +
-	                '<td>' + error.message + '</td>';
-	          }
+	      '<tbody>' +
+	      errors.map(function(error) {
+	        var message;
+	        if (typeof error === 'string') {
+	          message = '<td colspan="2"><pre>' + error + '</pre></td>';
+	        } else {
+	          message = '<td>' + error.dataPath + '</td>' +
+	            '<td>' + error.message + '</td>';
+	        }
 
-	          return '<tr><td><button class="jsoneditor-schema-error"></button></td>' + message + '</tr>'
-	        }).join('') +
-	        '</tbody>' +
-	        '</table>';
+	        return '<tr><td><button class="jsoneditor-schema-error"></button></td>' + message + '</tr>'
+	      }).join('') +
+	      '</tbody>' +
+	      '</table>';
 
 	    this.dom.validationErrors = validationErrors;
 	    this.frame.appendChild(validationErrors);
@@ -16411,21 +16410,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	// define modes
-	module.exports = [
-	  {
-	    mode: 'text',
-	    mixin: textmode,
-	    data: 'text',
-	    load: textmode.format
-	  },
-	  {
-	    mode: 'code',
-	    mixin: textmode,
-	    data: 'text',
-	    load: textmode.format
-	  }
-	];
-
+	module.exports = [{
+	  mode: 'text',
+	  mixin: textmode,
+	  data: 'text',
+	  load: textmode.format
+	}, {
+	  mode: 'code',
+	  mixin: textmode,
+	  data: 'text',
+	  load: textmode.format
+	}];
 
 /***/ },
 /* 63 */
