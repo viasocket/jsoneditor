@@ -46,7 +46,6 @@ textmode.create = function(container, options) {
   // read options
   options = options || {};
   this.options = options;
-  console.log("options ", this.options);
   // indentation
   if (options.indentation) {
     this.indentation = Number(options.indentation);
@@ -255,7 +254,7 @@ textmode.create = function(container, options) {
 textmode._onChange = function() {
 
   // validate JSON schema (if configured)
-  console.log(this.aceEditor.getSession().getAnnotations());
+  
   this._debouncedValidate();
 
   // trigger the onChange callback
@@ -278,8 +277,6 @@ textmode._onKeyDown = function(event) {
   var handled = false;
 
   if (keynum == 52 && event.shiftKey) {
-    console.log(this.aceEditor.commands.byName.startAutocomplete);
-    console.log(this);
     this.aceEditor.commands.byName.startAutocomplete.exec(this.aceEditor);
   }
 
@@ -344,8 +341,8 @@ textmode.compact = function() {
  */
 textmode.format = function() {
   var json = this.get();
-  var text = JSON.stringify(json, null, this.indentation);
-  // var text = json;
+  // var text = JSON.stringify(json, null, this.indentation);
+  var text = json;
   this.setText(text);
 };
 
@@ -376,7 +373,7 @@ textmode.resize = function() {
  * @param {Object} json
  */
 textmode.set = function(json) {
-  console.log("setter", json);
+  
   // this.setText(JSON.stringify(json, null, this.indentation));
   this.setText(this.sanitizeJSON(json));
 };
@@ -425,7 +422,6 @@ textmode.getText = function() {
 textmode.setText = function(jsonText) {
   var text;
   // jsonText = JSON.parse(jsonText, null, this.indentation)
-  console.log("thosos s", jsonText);
   if (this.options.escapeUnicode === true) {
     text = util.escapeUnicodeChars(jsonText);
   } else {
