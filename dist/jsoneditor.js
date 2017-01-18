@@ -25,7 +25,7 @@
  *
  * @author  Jos de Jong, <wjosdejong@gmail.com>
  * @version 5.5.11
- * @date    2017-01-16
+ * @date    2017-01-18
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -15956,15 +15956,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  /*initialize completer here */
 	  if (typeof this.options.completer != 'object') {
-	    this.options.completer = [{
-	      value: "$sameer",
-	      score: 1000,
-	      meta: "custom"
-	    }, {
-	      value: "$rathore",
-	      score: 1000,
-	      meta: "custom"
-	    }];
+	    this.options.completer = [];
 	  }
 
 	  var me = this;
@@ -16251,7 +16243,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	/**
-	 * Set json data in the formatter
+	 * Set json data in the 
 	 * @param {Object} json
 	 */
 	textmode.set = function(json) {

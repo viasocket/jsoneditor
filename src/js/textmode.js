@@ -74,15 +74,7 @@ textmode.create = function(container, options) {
 
   /*initialize completer here */
   if (typeof this.options.completer != 'object') {
-    this.options.completer = [{
-      value: "$sameer",
-      score: 1000,
-      meta: "custom"
-    }, {
-      value: "$rathore",
-      score: 1000,
-      meta: "custom"
-    }];
+    this.options.completer = [];
   }
 
   var me = this;
@@ -369,7 +361,7 @@ textmode.resize = function() {
 };
 
 /**
- * Set json data in the formatter
+ * Set json data in the 
  * @param {Object} json
  */
 textmode.set = function(json) {
