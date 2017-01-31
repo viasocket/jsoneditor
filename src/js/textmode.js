@@ -315,7 +315,8 @@ textmode.destroy = function() {
 };
 
 textmode.sanitizeJSON = function(unsanitized) {
-  return unsanitized.replace(/\\/g, "").replace('\\"', ''); //.replace(/'/g,"\\\'").replace(/\&/g, "\\&"); 
+  return unsanitized;
+  // return unsanitized.replace(/\\/g, "").replace('\\"', ''); //.replace(/'/g,"\\\'").replace(/\&/g, "\\&"); 
 }
 
 /**

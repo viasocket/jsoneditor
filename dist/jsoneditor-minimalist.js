@@ -25,7 +25,7 @@
  *
  * @author  Jos de Jong, <wjosdejong@gmail.com>
  * @version 5.5.11
- * @date    2017-01-18
+ * @date    2017-01-31
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -8298,7 +8298,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 	textmode.sanitizeJSON = function(unsanitized) {
-	  return unsanitized.replace(/\\/g, "").replace('\\"', ''); //.replace(/'/g,"\\\'").replace(/\&/g, "\\&"); 
+	  return unsanitized;
+	  // return unsanitized.replace(/\\/g, "").replace('\\"', ''); //.replace(/'/g,"\\\'").replace(/\&/g, "\\&"); 
 	}
 
 	/**
