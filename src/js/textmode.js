@@ -99,6 +99,9 @@ textmode.create = function(container, options) {
   this.frame.onkeydown = function(event) {
     me._onKeyDown(event);
   };
+  this.frame.onkeyup = function(event) {
+    if ((event.which || event.keyCode) == 8) me._onKeyDown(event);
+  };
 
   // create menu
   this.menu = document.createElement('div');
@@ -268,7 +271,7 @@ textmode._onKeyDown = function(event) {
   var keynum = event.which || event.keyCode;
   var handled = false;
 
-  if (keynum == 52 && event.shiftKey) {
+  if ((keynum == 52 && event.shiftKey) || keynum == 8) {
     this.aceEditor.commands.byName.startAutocomplete.exec(this.aceEditor);
   }
 

@@ -25,7 +25,7 @@
  *
  * @author  Jos de Jong, <wjosdejong@gmail.com>
  * @version 5.5.11
- * @date    2017-01-31
+ * @date    2017-02-11
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
@@ -8082,6 +8082,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  this.frame.onkeydown = function(event) {
 	    me._onKeyDown(event);
 	  };
+	  this.frame.onkeyup = function(event) {
+	    if ((event.which || event.keyCode) == 8) me._onKeyDown(event);
+	  };
 
 	  // create menu
 	  this.menu = document.createElement('div');
@@ -8251,7 +8254,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var keynum = event.which || event.keyCode;
 	  var handled = false;
 
-	  if (keynum == 52 && event.shiftKey) {
+	  if ((keynum == 52 && event.shiftKey) || keynum == 8) {
 	    this.aceEditor.commands.byName.startAutocomplete.exec(this.aceEditor);
 	  }
 
